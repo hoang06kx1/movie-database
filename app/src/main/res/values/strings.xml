@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MovieRating</string>
+    
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_launch">LaunchActivity</string>
+    <string name="SIGN_IN">SIGN IN</string>
+    <string name="SIGN_UP">SIGN UP</string>
+    <string name="OR_SKIP">OR SKIP</string>
+    <string name="EMAIL">EMAIL</string>
+    <string name="PASSWORD">PASSWORD</string>
+    <string name="PASSWORD_AGAIN">PASSWORD AGAIN</string>
+    <string name="please_enter_new_password">Please enter your new password</string>
+    <string name="FORGOT_PASSWORD">FORGOT PASSWORD?</string>
+    <string name="CANCEL">CANCEL</string>
+    <string name="SUBMIT">SUBMIT</string>
+    <string name="please_enter_email">Please enter your email so we can send you link to reset password</string>
+    <string name="wrong_email">wrong email/password</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

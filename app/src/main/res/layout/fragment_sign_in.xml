@@ -1,0 +1,70 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:padding="@dimen/default_padding">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/default_text"
+        android:text="@string/SIGN_UP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>
+
+
+    <LinearLayout
+        android:paddingTop="@dimen/default_margin"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edt_email"
+            android:fontFamily="sans-serif-thin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/EMAIL"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:fontFamily="sans-serif-thin"
+            android:id="@+id/edt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PASSWORD"
+            android:textColorHint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/gray_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/CANCEL" />
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                style="@style/orange_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:text="@string/SIGN_IN" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/FORGOT_PASSWORD" />
+    </LinearLayout>
+</RelativeLayout>

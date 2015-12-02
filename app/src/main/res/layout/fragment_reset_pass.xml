@@ -1,0 +1,62 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_login"
+    android:padding="@dimen/default_padding">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:textColor="@color/text_dim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/please_enter_new_password"/>
+
+        <EditText
+            android:layout_marginTop="@dimen/default_margin"
+            android:id="@+id/edt_password"
+            android:fontFamily="sans-serif-thin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PASSWORD"
+            android:textColorHint="@color/white" />
+
+        <EditText
+            android:fontFamily="sans-serif-thin"
+            android:id="@+id/edt_password_again"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/PASSWORD_AGAIN"
+            android:textColorHint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/gray_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/CANCEL" />
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                style="@style/orange_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:text="@string/SIGN_UP" />
+        </LinearLayout>
+        
+    </LinearLayout>
+</RelativeLayout>
