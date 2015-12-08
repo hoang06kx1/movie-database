@@ -2,6 +2,7 @@ package nguyen.hoang.movierating.AccountManagement;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils;
 
 public class LaunchActivity extends FragmentActivity {
 
@@ -29,6 +31,22 @@ public class LaunchActivity extends FragmentActivity {
 
     private void initView() {
         FragmentLaunch fragmentLaunch = new FragmentLaunch();
-        getSupportFragmentManager().beginTransaction().add(R.id.frament_container, fragmentLaunch, FragmentLaunch.TAG).commit();
+        Utils.replaceFragmentInAccountManagement(this, fragmentLaunch, fragmentLaunch.TAG);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragmentSignIn = getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG);
+        Fragment fragmentSignUp = getSupportFragmentManager().findFragmentByTag(FragmentSignUp.TAG);
+        if ((fragmentSignIn != null && fragmentSignIn.isVisible()) || (fragmentSignUp != null && fragmentSignUp.isVisible())) {
+            Fragment fragmentLaunch = getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
+            if (getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG) != null) {
+                getSupportFragmentManager().beginTransaction().remove(fragmentLaunch).commit();
+            }
+            fragmentLaunch = new FragmentLaunch();
+            Utils.replaceFragmentInAccountManagement(this, fragmentLaunch, FragmentLaunch.TAG, false);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

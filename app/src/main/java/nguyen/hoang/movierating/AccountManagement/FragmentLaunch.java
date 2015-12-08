@@ -11,10 +11,8 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentLaunch extends Fragment implements View.OnClickListener {
     @Bind(R.id.btn_sign_in) Button mBtnSignIn;
     @Bind(R.id.btn_sign_up) Button mBtnSignUp;
@@ -40,10 +38,10 @@ public class FragmentLaunch extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if (view == mBtnSignIn) {
             FragmentSignIn fragmentSignIn = new FragmentSignIn();
-            getFragmentManager().beginTransaction().replace(R.id.frament_container, fragmentSignIn, FragmentSignIn.TAG).addToBackStack(FragmentSignIn.TAG).commit();
+            Utils.replaceFragmentInAccountManagement(getActivity(), fragmentSignIn, fragmentSignIn.TAG, false);
         } else if (view == mBtnSignUp){
             FragmentSignUp fragmentSignUp = new FragmentSignUp();
-            getFragmentManager().beginTransaction().replace(R.id.frament_container, fragmentSignUp, FragmentSignUp.TAG).addToBackStack(FragmentSignUp.TAG).commit();
+            Utils.replaceFragmentInAccountManagement(getActivity(), fragmentSignUp, fragmentSignUp.TAG, false);
         }
     }
 }

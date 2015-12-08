@@ -10,13 +10,14 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-
+import nguyen.hoang.movierating.AccountManagement.FragmentForgotPassword;
 import nguyen.hoang.movierating.AccountManagement.FragmentLaunch;
 import nguyen.hoang.movierating.AccountManagement.FragmentSignIn;
 import nguyen.hoang.movierating.AccountManagement.FragmentSignUp;
 import nguyen.hoang.movierating.AccountManagement.LaunchActivity;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by Administrator on 11/26/2015.
@@ -27,30 +28,20 @@ import static junit.framework.Assert.assertNotNull;
 public class FragmentSignInTest {
     LaunchActivity mLaunchActivity;
     @Before
-    public void setupFragment() {
+    public void loadSignInFragment() {
         mLaunchActivity = Robolectric.setupActivity(LaunchActivity.class);
+        mLaunchActivity.findViewById(R.id.btn_sign_in).performClick();
     }
 
     @Test
-    public void shouldStartLaunchFragmentWhenLaunchActivityStart() {
-        Fragment launchFragment = mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-        assertNotNull("launch fragment is null", launchFragment);
-    }
-
-    @Test
-    public void clickSignInButtonShouldStartSignInFragment() {
-        Button btnSignIn = (Button) mLaunchActivity.findViewById(R.id.btn_sign_in);
-        // Button btnSignUp = (Button) mLaunchActivity.findViewById(R.id.btn_sign_up);
-        btnSignIn.performClick();
-        Fragment signInFragment = mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG);
-        assertNotNull("sign in fragment is null", signInFragment);
-    }
-
-    @Test
-    public void clickSignUpButtonShouldStartSignUpFragment() {
-        Button btnSignUp = (Button) mLaunchActivity.findViewById(R.id.btn_sign_up);
-        btnSignUp.performClick();
-        Fragment signUpFragment = mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignUp.TAG);
-        assertNotNull("sign in fragment is null", signUpFragment) ;
+    public void clickForgotPassword_shouldStartForgotPasswordFragment() {
+        FragmentSignIn fragmentSignIn = (FragmentSignIn) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG);
+        fragmentSignIn.getView().findViewById(R.id.tv_forget_password).performClick();
+        FragmentForgotPassword fragmentForgotPassword = (FragmentForgotPassword) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentForgotPassword.TAG);
+        assertNotNull(fragmentForgotPassword);
+        assertTrue("Fragment Forgot Password should be shown", fragmentForgotPassword.isVisible());
+        mLaunchActivity.onBackPressed();
+        fragmentSignIn = (FragmentSignIn) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG);
+        assertTrue("Should show fragment SignIn when press back button on forget password screen", fragmentSignIn.isVisible());
     }
 }
