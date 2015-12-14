@@ -1,6 +1,7 @@
 package nguyen.hoang.movierating.AccountManagement;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,8 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nguyen.hoang.movierating.MainActivity;
 import nguyen.hoang.movierating.R;
 import nguyen.hoang.movierating.Utils;
 
@@ -67,9 +73,28 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
                 mTvWrongValidation.setVisibility(View.VISIBLE);
             } else {
                 mTvWrongValidation.setVisibility(View.GONE);
+                processSignIn(mEdtEmail.getText().toString(), mEdtPassword.getText().toString());
             }
         } else if (view == mBtnCancel) {
             getActivity().onBackPressed();
         }
+    }
+
+    private void processSignIn(String email, String password) {
+        ParseUser.logInInBackground(email, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser user, ParseException e) {
+                if (user != null) {
+                    signInSuccessfully();
+                } else {
+                    Utils.showErrorMessage(getActivity(), e);
+                }
+            }
+        });
+    }
+
+    private void signInSuccessfully() {
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 }

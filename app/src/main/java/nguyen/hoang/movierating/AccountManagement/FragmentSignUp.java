@@ -1,5 +1,6 @@
 package nguyen.hoang.movierating.AccountManagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nguyen.hoang.movierating.MainActivity;
 import nguyen.hoang.movierating.R;
 import nguyen.hoang.movierating.Utils;
 
@@ -59,9 +65,33 @@ public class FragmentSignUp extends Fragment implements View.OnClickListener{
                 mTvWrongValidation.setVisibility(View.VISIBLE);
             } else {
                 mTvWrongValidation.setVisibility(View.GONE);
+                processSignUp(mEdtEmail.getText().toString(), mEdtPassword.getText().toString());
             }
         } else if (view == mBtnCancel) {
             getActivity().onBackPressed();
         }
+    }
+
+    private void processSignUp(String email, String password) {
+        ParseUser user = new ParseUser();
+        user.setUsername(email);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.signUpInBackground(new SignUpCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    signUpSuccessfully();
+                } else {
+                    e.printStackTrace();
+                    Utils.showErrorMessage(getActivity(), e);
+                }
+            }
+        });
+    }
+
+    private void signUpSuccessfully() {
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 }
