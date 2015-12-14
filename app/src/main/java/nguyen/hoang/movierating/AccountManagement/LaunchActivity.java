@@ -40,7 +40,7 @@ public class LaunchActivity extends FragmentActivity {
         Fragment fragmentSignUp = getSupportFragmentManager().findFragmentByTag(FragmentSignUp.TAG);
         if ((fragmentSignIn != null && fragmentSignIn.isVisible()) || (fragmentSignUp != null && fragmentSignUp.isVisible())) {
             Fragment fragmentLaunch = getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-            if (getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG) != null) {
+            if (fragmentLaunch != null) {
                 getSupportFragmentManager().beginTransaction().remove(fragmentLaunch).commit();
             }
             fragmentLaunch = new FragmentLaunch();

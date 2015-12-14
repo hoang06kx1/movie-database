@@ -24,6 +24,14 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_wrong_validation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wrong_validation"
+            android:visibility="gone"
+            />
+
         <EditText
             android:id="@+id/edt_email"
             android:fontFamily="sans-serif-thin"
@@ -33,6 +41,7 @@
             android:textColorHint="@color/white" />
 
         <EditText
+            android:inputType="textPassword"
             android:fontFamily="sans-serif-thin"
             android:id="@+id/edt_password"
             android:layout_width="match_parent"

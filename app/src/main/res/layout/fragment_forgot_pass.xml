@@ -20,6 +20,15 @@
             android:text="@string/please_enter_email"
             android:textColor="@color/text_dim"
             />
+
+        <TextView
+            android:id="@+id/tv_wrong_validation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wrong_validation"
+            android:visibility="gone"
+            />
+
         <EditText
             android:layout_marginTop="@dimen/default_margin"
             android:id="@+id/edt_email"
@@ -42,7 +51,7 @@
                 android:text="@string/CANCEL" />
 
             <Button
-                android:id="@+id/btn_sign_in"
+                android:id="@+id/btn_submit"
                 style="@style/orange_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
