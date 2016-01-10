@@ -16,7 +16,7 @@ import com.parse.SignUpCallback;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import nguyen.hoang.movierating.MainActivity;
+import nguyen.hoang.movierating.MovieRating.MainActivity;
 import nguyen.hoang.movierating.R;
 import nguyen.hoang.movierating.Utils;
 
@@ -24,14 +24,13 @@ import nguyen.hoang.movierating.Utils;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentSignUp extends Fragment implements View.OnClickListener{
+    public static String TAG = "FragmentSignUp";
     @Bind(R.id.tv_sign_in) TextView mTvSignIn;
     @Bind(R.id.btn_sign_up) Button mBtSignUp;
     @Bind(R.id.edt_email) EditText mEdtEmail;
     @Bind(R.id.edt_password) EditText mEdtPassword;
     @Bind(R.id.tv_wrong_validation) TextView mTvWrongValidation;
     @Bind(R.id.btn_cancel) Button mBtnCancel;
-
-    public static String TAG = "FragmentSignUp";
     public FragmentSignUp() {
         // Required empty public constructor
     }

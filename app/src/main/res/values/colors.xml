@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#232b35</color>
     <color name="colorPrimaryDark">#232b35</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#f26522</color>
     <!-- Login Screen -->
     <color name="bg_login">#303b4a</color>
     <color name="white">#FFFFFF</color>

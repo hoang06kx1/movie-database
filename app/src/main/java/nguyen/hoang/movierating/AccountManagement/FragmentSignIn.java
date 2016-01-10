@@ -17,7 +17,7 @@ import com.parse.ParseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import nguyen.hoang.movierating.MainActivity;
+import nguyen.hoang.movierating.MovieRating.MainActivity;
 import nguyen.hoang.movierating.R;
 import nguyen.hoang.movierating.Utils;
 
@@ -25,6 +25,7 @@ import nguyen.hoang.movierating.Utils;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentSignIn extends android.support.v4.app.Fragment implements View.OnClickListener {
+    public static String TAG = "FragmentSignIn";
     @Bind(R.id.tv_forget_password) TextView mTvForgotPassword;
     @Bind(R.id.tv_sign_up) TextView mTvSignUp;
     @Bind(R.id.btn_sign_in) Button mBtSignIn;
@@ -32,8 +33,6 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     @Bind(R.id.edt_password) EditText mEdtPassword;
     @Bind(R.id.tv_wrong_validation) TextView mTvWrongValidation;
     @Bind(R.id.btn_cancel) Button mBtnCancel;
-
-    public static String TAG = "FragmentSignIn";
     public FragmentSignIn() {
         // Required empty public constructor
     }

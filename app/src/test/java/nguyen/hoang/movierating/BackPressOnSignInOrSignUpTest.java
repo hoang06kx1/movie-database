@@ -3,13 +3,9 @@ package nguyen.hoang.movierating;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.ParameterizedRobolectricTestRunner;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import nguyen.hoang.movierating.AccountManagement.FragmentLaunch;
 import nguyen.hoang.movierating.AccountManagement.FragmentSignIn;
@@ -23,7 +19,7 @@ import static junit.framework.Assert.assertTrue;
  * Created by smartdev on 02/12/2015.
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, application = TestParseApplication.class)
 public class BackPressOnSignInOrSignUpTest {
     private LaunchActivity mLaunchActivity;
 

@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.RequestPasswordResetCallback;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,9 +59,23 @@ public class FragmentForgotPassword extends Fragment implements View.OnClickList
                 mTvWrongValidation.setVisibility(View.VISIBLE);
             } else {
                 mTvWrongValidation.setVisibility(View.GONE);
+                resetPassword(mEdtEmail.getText().toString());
             }
         } else if (view == mBtnCancel) {
             getFragmentManager().popBackStack();
         }
+    }
+
+    private void resetPassword(String email) {
+        ParseUser parseUser = new ParseUser();
+        parseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    Toast.makeText(getActivity(), getString(R.string.reset_password_email_sent), Toast.LENGTH_LONG).show();
+                } else {
+                    Utils.showErrorMessage(getActivity(), e);
+                }
+            }
+        });
     }
 }
