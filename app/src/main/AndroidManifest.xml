@@ -23,6 +23,10 @@
             android:name="com.parse.CLIENT_KEY"
             android:value="RvDIQl4w0vmMCsOHZGkbZGSppemZ8Z05S78QAzG2" />
 
+        <meta-data
+            android:name="themoviedb.org"
+            android:value="c125a18cee35826d09eaee39775b881a" />
+
         <uses-sdk android:targetSdkVersion="16" />
 
         <activity

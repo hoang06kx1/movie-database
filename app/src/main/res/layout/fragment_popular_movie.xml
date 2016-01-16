@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     tools:context="nguyen.hoang.movierating.MovieRating.PopularMovieFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <nguyen.hoang.movierating.CustomView.AutofitRecyclerView
+        android:id="@+id/recycle_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
+        android:background="@color/bg_movie_list"
+        android:clipToPadding="false"
+        android:columnWidth="150dp"
+        android:scrollbars="vertical" />
 </FrameLayout>
