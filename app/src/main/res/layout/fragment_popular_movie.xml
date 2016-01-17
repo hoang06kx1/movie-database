@@ -5,7 +5,7 @@
     tools:context="nguyen.hoang.movierating.MovieRating.PopularMovieFragment">
 
     <nguyen.hoang.movierating.CustomView.AutofitRecyclerView
-        android:id="@+id/recycle_popular"
+        android:id="@+id/recycler_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_movie_list"

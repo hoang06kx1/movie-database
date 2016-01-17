@@ -3,6 +3,7 @@ package nguyen.hoang.movierating.MovieRating;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,10 +52,10 @@ public class PopularMovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_popular_movie, container, false);
-        mGridRecycleMovie = (AutofitRecyclerView) v.findViewById(R.id.recycle_popular);
+        mGridRecycleMovie = (AutofitRecyclerView) v.findViewById(R.id.recycler_popular);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_column_space);
         mGridRecycleMovie.addItemDecoration(new SpaceItemDecoration(mGridRecycleMovie, spacingInPixels, true));
-        MovieAdapter adapter = new MovieAdapter(new ArrayList<Movie>());
+        MovieAdapter adapter = new MovieAdapter(new ArrayList<Movie>(), (AppCompatActivity) getActivity());
         mGridRecycleMovie.setAdapter(adapter);
         return v;
     }

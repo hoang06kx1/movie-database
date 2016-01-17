@@ -1,5 +1,7 @@
 package nguyen.hoang.movierating.MovieRating.Model;
 
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import nguyen.hoang.movierating.MovieRating.MovieDetailActivity;
 import nguyen.hoang.movierating.R;
 
 /**
@@ -16,9 +19,11 @@ import nguyen.hoang.movierating.R;
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
     private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private AppCompatActivity mActivity;
 
-    public MovieAdapter(ArrayList<Movie> movieList) {
+    public MovieAdapter(ArrayList<Movie> movieList, AppCompatActivity activity) {
         mMovieList = movieList;
+        mActivity = activity;
     }
 
     @Override
@@ -30,7 +35,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(MovieAdapter.ViewHolder holder, int position) {
-        // Movie movie = mMovieList.get(position);
+        holder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(mActivity, MovieDetailActivity.class);
+                mActivity.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -48,12 +59,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public ImageView movieImage;
         public TextView movieTitle;
         public ImageView movieFavorite;
+        public View mView;
 
         public ViewHolder(View v) {
             super(v);
             movieImage = (ImageView) v.findViewById(R.id.img_movie);
             movieTitle = (TextView) v.findViewById(R.id.tv_title);
+            mView = v;
             // movieFavorite = (ImageButton) v.findViewById(R.id.bt_favorite);
+        }
+
+        public View getView() {
+            return mView;
         }
     }
 }

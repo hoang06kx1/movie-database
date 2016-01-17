@@ -13,4 +13,5 @@
     <color name="orange_button">#f26522</color>
     <color name="text_dim">#5d5d5d</color>
     <color name="wrong_validation">#a72d33</color>
+    <color name="text_title">#303b4a</color>
 </resources>
