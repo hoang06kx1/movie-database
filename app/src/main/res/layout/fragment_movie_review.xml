@@ -4,10 +4,14 @@
     android:layout_height="match_parent"
     tools:context="nguyen.hoang.movierating.MovieRating.MovieReviewFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_review"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:background="@color/bg_movie_list"
+        android:clipToPadding="false"
+        android:columnWidth="150dp"
+        android:padding="@dimen/default_one_unit"
+        android:scrollbars="vertical" />
 
 </FrameLayout>
