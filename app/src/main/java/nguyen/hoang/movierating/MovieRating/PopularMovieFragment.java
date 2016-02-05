@@ -3,19 +3,25 @@ package nguyen.hoang.movierating.MovieRating;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
 
 import nguyen.hoang.movierating.CustomView.AutofitRecyclerView;
-import nguyen.hoang.movierating.MovieRating.Model.Movie;
 import nguyen.hoang.movierating.MovieRating.Model.MovieAdapter;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Response;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.WebService.BaseErrorListener;
+import nguyen.hoang.movierating.WebService.BaseSuccessListener;
+import nguyen.hoang.movierating.WebService.WebHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,9 +60,20 @@ public class PopularMovieFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_popular_movie, container, false);
         mGridRecycleMovie = (AutofitRecyclerView) v.findViewById(R.id.recycler_popular);
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_column_space);
-        mGridRecycleMovie.addItemDecoration(new SpaceItemDecoration(mGridRecycleMovie, spacingInPixels, true));
-        MovieAdapter adapter = new MovieAdapter(new ArrayList<Movie>(), (AppCompatActivity) getActivity());
-        mGridRecycleMovie.setAdapter(adapter);
+        mGridRecycleMovie.addItemDecoration(new SpaceItemDecoration(mGridRecycleMovie, spacingInPixels, true, 0));
+        WebHelper.getPopularMovies(0, getString(R.string.Loading),
+                new BaseSuccessListener<String>((BaseActivity) getActivity()) {
+                    @Override
+                    public void onResponse(String response) {
+                        super.onResponse(response);
+                        Gson gson = new GsonBuilder().create();
+                        Response responseObject =
+                                gson.fromJson(response, Response.class);
+                        List<Result> results = responseObject.getResults();
+                        MovieAdapter adapter = new MovieAdapter(results, (BaseActivity) getActivity());
+                        mGridRecycleMovie.setAdapter(adapter);
+                    }
+                }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
         return v;
     }
 
@@ -64,16 +81,24 @@ public class PopularMovieFragment extends Fragment {
         private RecyclerView recyclerView;
         private int spacing;
         private boolean includeEdge;
+        private int complementValue;
 
-        public SpaceItemDecoration(RecyclerView recyclerView, int spacing, boolean includeEdge) {
+        public SpaceItemDecoration(RecyclerView recyclerView, int spacing, boolean includeEdge, int complementValue) {
             this.recyclerView = recyclerView;
             this.spacing = spacing;
             this.includeEdge = includeEdge;
+            this.complementValue = complementValue;
         }
 
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             int position = parent.getChildAdapterPosition(view); // item position
+            position = position + complementValue;
+            if (position < 0) {
+                super.getItemOffsets(outRect, view, parent, state);
+                return;
+            }
+
             int spanCount = ((GridLayoutManager) recyclerView.getLayoutManager()).getSpanCount();
             int column = position % spanCount; // item column
 

@@ -6,21 +6,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 
 import nguyen.hoang.movierating.R;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends BaseActivity {
     Toolbar mToolbar;
     ViewPager mViewPager;
     TabLayout mTabs;
+    int mMovieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMovieId = getIntent().getExtras().getInt(MovieDetailFragment.MOVIE_ID_STRING, -1);
         setContentView(R.layout.activity_movie_detail);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(mViewPager);
@@ -32,7 +33,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(MovieDetailFragment.newInstance(), getString(R.string.DETAILS));
+        adapter.addFragment(MovieDetailFragment.newInstance(mMovieId), getString(R.string.DETAILS));
         adapter.addFragment(MovieReviewFragment.newInstance(), getString(R.string.REVIEWS));
         viewPager.setAdapter(adapter);
     }

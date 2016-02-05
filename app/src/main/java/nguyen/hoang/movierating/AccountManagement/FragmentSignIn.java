@@ -19,7 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.MovieRating.MainActivity;
 import nguyen.hoang.movierating.R;
-import nguyen.hoang.movierating.Utils;
+import nguyen.hoang.movierating.Utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.

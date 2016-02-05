@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import nguyen.hoang.movierating.R;
 /**
  * Created by Hoang on 12/14/2015.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private Toolbar mToolbar;
     private TabLayout mTabs;
     private ViewPager mHomePager;
@@ -36,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupHomePager() {
         HomeAdapter homeAdapter = new HomeAdapter(getSupportFragmentManager());
-        homeAdapter.addFragment(new PopularMovieFragment(), "POPULAR");
-        homeAdapter.addFragment(new MostRatedMovieFragment(), "MOST RATED");
-        homeAdapter.addFragment(new MyFavMovieFragment(), "MY FAV");
+        homeAdapter.addFragment(PopularMovieFragment.newInstance(), "POPULAR");
+        homeAdapter.addFragment(MostRatedMovieFragment.newInstance(), "MOST RATED");
+        homeAdapter.addFragment(MyFavMovieFragment.newInstance(), "MY FAV");
         mHomePager.setAdapter(homeAdapter);
     }
 

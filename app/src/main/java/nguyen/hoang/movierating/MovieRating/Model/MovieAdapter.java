@@ -1,7 +1,6 @@
 package nguyen.hoang.movierating.MovieRating.Model;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +8,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import nguyen.hoang.movierating.CustomView.ScaleImageView;
+import nguyen.hoang.movierating.MovieRating.BaseActivity;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
 import nguyen.hoang.movierating.MovieRating.MovieDetailActivity;
+import nguyen.hoang.movierating.MovieRating.MovieDetailFragment;
 import nguyen.hoang.movierating.R;
 
 /**
  * Created by Hoang on 1/12/2016.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    private ArrayList<Movie> mMovieList = new ArrayList<>();
-    private AppCompatActivity mActivity;
+    private List<Result> mMovieList = new ArrayList<>();
+    private BaseActivity mActivity;
 
-    public MovieAdapter(ArrayList<Movie> movieList, AppCompatActivity activity) {
+    public MovieAdapter(List<Result> movieList, BaseActivity activity) {
         mMovieList = movieList;
         mActivity = activity;
     }
@@ -34,11 +40,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(MovieAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MovieAdapter.ViewHolder holder, final int position) {
+        holder.movieTitle.setText(mMovieList.get(position).getTitle());
+        String imageUrl = "http://image.tmdb.org/t/p/w342" + mMovieList.get(position).getPoster_path();
+        // holder.movieImage.setImageUrl("http://image.tmdb.org/t/p/w500" + imageUrl, mActivity.getParseApplication().getImageLoader());
+        Picasso.with(mActivity).load(imageUrl).into(holder.movieImage);
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                long id = mMovieList.get(position).getId();
                 Intent i = new Intent(mActivity, MovieDetailActivity.class);
+                i.putExtra(MovieDetailFragment.MOVIE_ID_STRING, (int) id);
                 mActivity.startActivity(i);
             }
         });
@@ -46,19 +58,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        //return mMovieList.size();
-        return 10;
+        return mMovieList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView movieImage;
+        public ScaleImageView movieImage;
         public TextView movieTitle;
         public ImageView movieFavorite;
         public View mView;
 
         public ViewHolder(View v) {
             super(v);
-            movieImage = (ImageView) v.findViewById(R.id.img_movie);
+            movieImage = (ScaleImageView) v.findViewById(R.id.img_movie);
             movieTitle = (TextView) v.findViewById(R.id.tv_title);
             mView = v;
             // movieFavorite = (ImageButton) v.findViewById(R.id.bt_favorite);

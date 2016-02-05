@@ -9,16 +9,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import nguyen.hoang.movierating.MovieRating.Model.WebService.Review.Result;
 import nguyen.hoang.movierating.R;
 
 /**
  * Created by Hoang on 1/12/2016.
  */
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
-    private ArrayList<Review> mListReview = new ArrayList<>();
+    private ArrayList<Result> mListReview = new ArrayList<>();
     private AppCompatActivity mActivity;
 
-    public ReviewAdapter(ArrayList<Review> listReview, AppCompatActivity activity) {
+    public ReviewAdapter(ArrayList<Result> listReview, AppCompatActivity activity) {
         mListReview = listReview;
         mActivity = activity;
     }

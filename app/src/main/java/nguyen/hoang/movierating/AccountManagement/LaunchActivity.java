@@ -12,7 +12,7 @@ import com.parse.ParseUser;
 
 import nguyen.hoang.movierating.MovieRating.MainActivity;
 import nguyen.hoang.movierating.R;
-import nguyen.hoang.movierating.Utils;
+import nguyen.hoang.movierating.Utils.Utils;
 
 public class LaunchActivity extends FragmentActivity {
 

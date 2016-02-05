@@ -11,13 +11,12 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.R;
-import nguyen.hoang.movierating.Utils;
+import nguyen.hoang.movierating.Utils.Utils;
 
 public class FragmentLaunch extends Fragment implements View.OnClickListener {
+    public static String TAG = "FragmentLaunch";
     @Bind(R.id.btn_sign_in) Button mBtnSignIn;
     @Bind(R.id.btn_sign_up) Button mBtnSignUp;
-
-    public static String TAG = "FragmentLaunch";
     public FragmentLaunch() {
         // Required empty public constructor
     }

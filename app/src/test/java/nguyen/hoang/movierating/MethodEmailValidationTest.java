@@ -1,6 +1,9 @@
 package nguyen.hoang.movierating;
 
 import junit.framework.TestCase;
+
+import nguyen.hoang.movierating.Utils.Utils;
+
 /**
  * Performs Validation Test for e-mail validations.
  *

@@ -1,4 +1,4 @@
-package nguyen.hoang.movierating;
+package nguyen.hoang.movierating.Utils;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -6,6 +6,8 @@ import android.widget.Toast;
 import com.parse.ParseException;
 
 import org.apache.commons.validator.routines.EmailValidator;
+
+import nguyen.hoang.movierating.R;
 
 /**
  * Created by smartdev on 02/12/2015.
