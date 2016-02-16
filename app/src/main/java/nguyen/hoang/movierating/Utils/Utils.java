@@ -1,12 +1,16 @@
 package nguyen.hoang.movierating.Utils;
+
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import nguyen.hoang.movierating.AccountManagement.LaunchActivity;
 import nguyen.hoang.movierating.R;
 
 /**
@@ -52,5 +56,12 @@ public class Utils {
                 Toast.makeText(activity, "Code: " + ex.getCode() + " - " + ex.getMessage(), Toast.LENGTH_LONG).show();
                 break;
         }
+    }
+
+    public static void logOutUser(FragmentActivity activity) {
+        ParseUser.logOut();
+        Intent i = new Intent(activity, LaunchActivity.class);
+        activity.startActivity(i);
+        activity.finish();
     }
 }

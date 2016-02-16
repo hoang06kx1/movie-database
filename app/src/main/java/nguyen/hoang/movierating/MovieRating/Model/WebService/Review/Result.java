@@ -6,6 +6,15 @@ public class Result {
     private String author;
     private String content;
     private String url;
+    private Boolean isExtendable = false;
+
+    public Boolean isExtendable() {
+        return isExtendable;
+    }
+
+    public void setExtendable(Boolean isExtendable) {
+        this.isExtendable = isExtendable;
+    }
 
     /**
      * @return The id

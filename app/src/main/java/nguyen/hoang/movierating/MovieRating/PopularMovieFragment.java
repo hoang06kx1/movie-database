@@ -11,14 +11,23 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import nguyen.hoang.movierating.CustomView.AutofitRecyclerView;
 import nguyen.hoang.movierating.MovieRating.Model.MovieAdapter;
 import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Response;
 import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
+import nguyen.hoang.movierating.ParseApplication;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils.Constants;
+import nguyen.hoang.movierating.Utils.Utils;
 import nguyen.hoang.movierating.WebService.BaseErrorListener;
 import nguyen.hoang.movierating.WebService.BaseSuccessListener;
 import nguyen.hoang.movierating.WebService.WebHelper;
@@ -66,12 +75,40 @@ public class PopularMovieFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         super.onResponse(response);
-                        Gson gson = new GsonBuilder().create();
+                        final Gson gson = new GsonBuilder().create();
                         Response responseObject =
                                 gson.fromJson(response, Response.class);
-                        List<Result> results = responseObject.getResults();
-                        MovieAdapter adapter = new MovieAdapter(results, (BaseActivity) getActivity());
-                        mGridRecycleMovie.setAdapter(adapter);
+                        final List<Result> results = responseObject.getResults();
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FAVORITE_MOVIE_CLASS_STRING);
+                        query.getFirstInBackground(new GetCallback<ParseObject>() {
+                            @Override
+                            public void done(ParseObject object, ParseException e) {
+                                LinkedHashMap<String, Result> favoriteMoviesMap = ParseApplication.sMapFavoriteMovies;
+                                if (e == null) {
+                                    if (object != null && object.getString(Constants.FAVORITE_MOVIE_CLASS_STRING) != null) {
+                                        String favoriteMoviesJson = object.getString(Constants.FAVORITE_MOVIE_CLASS_STRING);
+                                        favoriteMoviesMap = gson.fromJson(favoriteMoviesJson, LinkedHashMap.class);
+                                    }
+                                } else {
+                                    if (e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                                        WebHelper.createParseFavoriteMoviesObject(favoriteMoviesMap, new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e != null) {
+                                                    e.printStackTrace();
+                                                    Utils.logOutUser(getActivity());
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        e.printStackTrace();
+                                        Utils.logOutUser(getActivity());
+                                    }
+                                }
+                                MovieAdapter adapter = new MovieAdapter(results, favoriteMoviesMap, (BaseActivity) getActivity());
+                                mGridRecycleMovie.setAdapter(adapter);
+                            }
+                        });
                     }
                 }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
         return v;

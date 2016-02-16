@@ -33,6 +33,7 @@
         android:layout_marginTop="@dimen/default_one_unit"
         android:text="@string/Read_more"
         android:textColor="@color/colorAccent"
-        android:textSize="@dimen/font_small" />
+        android:textSize="@dimen/font_small"
+        android:visibility="gone" />
 
 </LinearLayout>

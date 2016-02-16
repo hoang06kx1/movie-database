@@ -15,6 +15,7 @@ public class Result {
     public final boolean video;
     public final double vote_average;
     public final long vote_count;
+    public boolean isFavorite;
 
     public Result(boolean adult, String backdrop_path, int[] genre_ids, long id, String original_language, String original_title, String overview, String release_date, String poster_path, double popularity, String title, boolean video, double vote_average, long vote_count) {
         this.adult = adult;
@@ -88,5 +89,13 @@ public class Result {
 
     public long getVote_count() {
         return vote_count;
+    }
+
+    public boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 }

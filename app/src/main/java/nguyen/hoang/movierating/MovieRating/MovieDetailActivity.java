@@ -34,7 +34,7 @@ public class MovieDetailActivity extends BaseActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(MovieDetailFragment.newInstance(mMovieId), getString(R.string.DETAILS));
-        adapter.addFragment(MovieReviewFragment.newInstance(), getString(R.string.REVIEWS));
+        adapter.addFragment(MovieReviewFragment.newInstance(mMovieId), getString(R.string.REVIEWS));
         viewPager.setAdapter(adapter);
     }
 

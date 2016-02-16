@@ -6,10 +6,23 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.parse.GetCallback;
+import com.parse.ParseACL;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.json.JSONObject;
 
+import java.util.LinkedHashMap;
+
 import nguyen.hoang.movierating.MovieRating.BaseActivity;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
+import nguyen.hoang.movierating.Utils.Constants;
 
 /**
  * Created by hoangnguyen on 28/01/2016.
@@ -63,5 +76,29 @@ public class WebHelper {
         String url = BASE_URL + "movie/" + id + "/videos" + API_KEY;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, successListener, errorListener);
         activity.getParseApplication().addToRequestQueue(stringRequest, activity.getClass().getSimpleName());
+    }
+
+    public static void createParseFavoriteMoviesObject(LinkedHashMap<String, Result> mapFavoriteMovies, SaveCallback callback) {
+        ParseObject favoriteMovies = new ParseObject(Constants.FAVORITE_MOVIE_CLASS_STRING);
+        favoriteMovies.setACL(new ParseACL(ParseUser.getCurrentUser()));
+        Gson gson = new GsonBuilder().create();
+        String jsonFavoriteMovies = gson.toJson(mapFavoriteMovies, LinkedHashMap.class);
+        favoriteMovies.put(Constants.FAVORITE_MOVIE_CLASS_STRING, jsonFavoriteMovies);
+        favoriteMovies.saveInBackground(callback);
+    }
+
+    public static void updateParseFavoriteMoviesObject(final LinkedHashMap<String, Result> mapFavoriteMovies) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(Constants.FAVORITE_MOVIE_CLASS_STRING);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    Gson gson = new GsonBuilder().create();
+                    String jsonFavoriteMovies = gson.toJson(mapFavoriteMovies, LinkedHashMap.class);
+                    object.put(Constants.FAVORITE_MOVIE_CLASS_STRING, jsonFavoriteMovies);
+                    object.saveInBackground();
+                }
+            }
+        });
     }
 }
