@@ -22,6 +22,19 @@ public class BaseActivity extends AppCompatActivity {
         return mProgressDialog;
     }
 
+    public void showProgressDialog(String message) {
+        mProgressDialog.setMessage(message);
+        if (!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+    }
+
     public ParseApplication getParseApplication() {
         return (ParseApplication) getApplication();
     }

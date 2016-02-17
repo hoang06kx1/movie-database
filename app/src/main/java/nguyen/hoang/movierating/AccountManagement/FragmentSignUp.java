@@ -92,5 +92,6 @@ public class FragmentSignUp extends Fragment implements View.OnClickListener{
     private void signUpSuccessfully() {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
+        getActivity().finish();
     }
 }

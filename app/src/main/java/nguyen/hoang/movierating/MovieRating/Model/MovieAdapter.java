@@ -13,7 +13,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import nguyen.hoang.movierating.CustomView.ScaleImageView;
@@ -22,6 +21,7 @@ import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Resul
 import nguyen.hoang.movierating.MovieRating.MovieDetailActivity;
 import nguyen.hoang.movierating.MovieRating.MovieDetailFragment;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils.Utils;
 import nguyen.hoang.movierating.WebService.WebHelper;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -29,14 +29,16 @@ import pl.droidsonroids.gif.GifImageView;
  * Created by Hoang on 1/12/2016.
  */
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    private List<Result> mMovieList = new ArrayList<>();
-    private LinkedHashMap<String, Result> mMapFavoriteMovie;
-    private BaseActivity mActivity;
+    protected List<Result> mMovieList = new ArrayList<>();
+    protected BaseActivity mActivity;
 
-    public MovieAdapter(List<Result> movieList, LinkedHashMap<String, Result> favoriteMovies, BaseActivity activity) {
+    public MovieAdapter(List<Result> movieList, BaseActivity activity) {
         mMovieList = movieList;
         mActivity = activity;
-        mMapFavoriteMovie = favoriteMovies;
+    }
+
+    public MovieAdapter(BaseActivity activity) {
+        mActivity = activity;
     }
 
     @Override
@@ -71,21 +73,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 mActivity.startActivity(i);
             }
         });
+        bindFavoriteButton(position, holder);
+    }
+
+    protected void bindFavoriteButton(final int position, final MovieAdapter.ViewHolder holder) {
         Drawable icFavorite = mActivity.getResources().getDrawable(R.drawable.ic_favorite);
         Drawable icFavoriteClicked = mActivity.getResources().getDrawable(R.drawable.ic_favorite_clicked);
         Long movieId = mMovieList.get(position).getId();
-        holder.btFavorite.setImageDrawable(mMapFavoriteMovie.get(String.valueOf(movieId)) != null ? icFavoriteClicked : icFavorite);
+        holder.btFavorite.setImageDrawable(Utils.getFavoriteMovies().get(String.valueOf(movieId)) != null ? icFavoriteClicked : icFavorite);
         holder.btFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 long id = mMovieList.get(position).getId();
-                if (mMapFavoriteMovie.get(String.valueOf(id)) != null) {
-                    mMapFavoriteMovie.remove(String.valueOf(id));
+                if (Utils.getFavoriteMovies().get(String.valueOf(id)) != null) {
+                    Utils.getFavoriteMovies().remove(String.valueOf(id));
                 } else {
-                    mMapFavoriteMovie.put(String.valueOf(id), mMovieList.get(position));
+                    Utils.getFavoriteMovies().put(String.valueOf(id), mMovieList.get(position));
                 }
-                WebHelper.updateParseFavoriteMoviesObject(mMapFavoriteMovie);
-                notifyDataSetChanged();
+                WebHelper.updateParseFavoriteMoviesObject(Utils.getFavoriteMovies());
+                Utils.notifyAllDataSetChanged();
             }
         });
     }

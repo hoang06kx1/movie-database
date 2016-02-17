@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import nguyen.hoang.movierating.CustomView.AutofitRecyclerView;
+import nguyen.hoang.movierating.MovieRating.Model.FavoriteMovieAdapter;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,20 +18,12 @@ import nguyen.hoang.movierating.R;
  * create an instance of this fragment.
  */
 public class MyFavMovieFragment extends Fragment {
-
+    AutofitRecyclerView mGridRecycleMovie;
+    FavoriteMovieAdapter mAdapter;
     public MyFavMovieFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyFavMovieFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MyFavMovieFragment newInstance() {
         MyFavMovieFragment fragment = new MyFavMovieFragment();
         Bundle args = new Bundle();
@@ -50,8 +45,13 @@ public class MyFavMovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_fav_movie, container, false);
+        View v = inflater.inflate(R.layout.fragment_popular_movie, container, false);
+        mGridRecycleMovie = (AutofitRecyclerView) v.findViewById(R.id.recycler_popular);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_column_space);
+        mGridRecycleMovie.addItemDecoration(new PopularMovieFragment.SpaceItemDecoration(mGridRecycleMovie, spacingInPixels, true, 0));
+        mAdapter = new FavoriteMovieAdapter((BaseActivity) getActivity());
+        mGridRecycleMovie.setAdapter(mAdapter);
+        Utils.setFavoriteMovieAdapter(mAdapter);
+        return v;
     }
-
 }

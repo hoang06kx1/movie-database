@@ -95,5 +95,6 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     private void signInSuccessfully() {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
+        getActivity().finish();
     }
 }

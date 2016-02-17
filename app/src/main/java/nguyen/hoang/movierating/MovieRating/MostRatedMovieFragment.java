@@ -7,7 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
+
+import nguyen.hoang.movierating.CustomView.AutofitRecyclerView;
+import nguyen.hoang.movierating.MovieRating.Model.MovieAdapter;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Response;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.Utils.Utils;
+import nguyen.hoang.movierating.WebService.BaseErrorListener;
+import nguyen.hoang.movierating.WebService.BaseSuccessListener;
+import nguyen.hoang.movierating.WebService.WebHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +32,7 @@ public class MostRatedMovieFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    AutofitRecyclerView mGridRecycleMovie;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -58,8 +71,25 @@ public class MostRatedMovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_most_rated_movie, container, false);
+        View v = inflater.inflate(R.layout.fragment_popular_movie, container, false);
+        mGridRecycleMovie = (AutofitRecyclerView) v.findViewById(R.id.recycler_popular);
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.grid_column_space);
+        mGridRecycleMovie.addItemDecoration(new PopularMovieFragment.SpaceItemDecoration(mGridRecycleMovie, spacingInPixels, true, 0));
+        WebHelper.getTopRatedMovies(0, getString(R.string.Loading),
+                new BaseSuccessListener<String>((BaseActivity) getActivity()) {
+                    @Override
+                    public void onResponse(String response) {
+                        super.onResponse(response);
+                        final Gson gson = new GsonBuilder().create();
+                        Response responseObject =
+                                gson.fromJson(response, Response.class);
+                        final List<Result> results = responseObject.getResults();
+                        MovieAdapter adapter = new MovieAdapter(results, (BaseActivity) getActivity());
+                        mGridRecycleMovie.setAdapter(adapter);
+                        Utils.setTopRatedMovieAdapter(adapter);
+                    }
+                }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
+        return v;
     }
 
 }

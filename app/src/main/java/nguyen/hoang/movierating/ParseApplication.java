@@ -12,9 +12,6 @@ import com.parse.Parse;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-import java.util.LinkedHashMap;
-
-import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
 import nguyen.hoang.movierating.Utils.LruBitmapCache;
 
 /**
@@ -22,7 +19,6 @@ import nguyen.hoang.movierating.Utils.LruBitmapCache;
  */
 public class ParseApplication extends Application {
     public static final String TAG = "RequestFactory";
-    public static LinkedHashMap<String, Result> sMapFavoriteMovies = new LinkedHashMap<>();
     private static ParseApplication mInstance;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;

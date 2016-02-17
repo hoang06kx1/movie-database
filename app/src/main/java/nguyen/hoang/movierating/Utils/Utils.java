@@ -10,7 +10,12 @@ import com.parse.ParseUser;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import java.util.LinkedHashMap;
+
 import nguyen.hoang.movierating.AccountManagement.LaunchActivity;
+import nguyen.hoang.movierating.MovieRating.Model.FavoriteMovieAdapter;
+import nguyen.hoang.movierating.MovieRating.Model.MovieAdapter;
+import nguyen.hoang.movierating.MovieRating.Model.WebService.PopularMovies.Result;
 import nguyen.hoang.movierating.R;
 
 /**
@@ -18,6 +23,11 @@ import nguyen.hoang.movierating.R;
  */
 public class Utils {
     public static String PASSWORD_REGREX = "^(?=.*[A-Z])(?=.*(_|[^\\w])).{6,}$";
+    private static LinkedHashMap<String, Result> sFavoriteMoviesMap = new LinkedHashMap<>();
+    private static MovieAdapter popularMovieAdapter = null;
+    private static MovieAdapter topRatedMovieAdapter = null;
+    private static FavoriteMovieAdapter favoriteMovieAdapter = null;
+
     public static void replaceFragmentInAccountManagement(FragmentActivity activity, Fragment fragment, String tag) {
         activity.getSupportFragmentManager().beginTransaction().replace(R.id.frament_container, fragment, tag).addToBackStack(tag).commit();
     }
@@ -63,5 +73,38 @@ public class Utils {
         Intent i = new Intent(activity, LaunchActivity.class);
         activity.startActivity(i);
         activity.finish();
+    }
+
+    public static void setPopularMovieAdapter(MovieAdapter popularMovieAdapter) {
+        Utils.popularMovieAdapter = popularMovieAdapter;
+    }
+
+    public static void setTopRatedMovieAdapter(MovieAdapter topRatedMovieAdapter) {
+        Utils.topRatedMovieAdapter = topRatedMovieAdapter;
+    }
+
+    public static void setFavoriteMovieAdapter(FavoriteMovieAdapter favoriteMovieAdapter) {
+        Utils.favoriteMovieAdapter = favoriteMovieAdapter;
+    }
+
+    public static LinkedHashMap<String, Result> getFavoriteMovies() {
+        return sFavoriteMoviesMap;
+    }
+
+    public static void setFavoriteMovies(LinkedHashMap<String, Result> favoriteMovieMap) {
+        Utils.sFavoriteMoviesMap = favoriteMovieMap;
+        notifyAllDataSetChanged();
+    }
+
+    public static void notifyAllDataSetChanged() {
+        if (popularMovieAdapter != null) {
+            popularMovieAdapter.notifyDataSetChanged();
+        }
+        if (topRatedMovieAdapter != null) {
+            topRatedMovieAdapter.notifyDataSetChanged();
+        }
+        if (favoriteMovieAdapter != null) {
+            favoriteMovieAdapter.updateMovieList();
+        }
     }
 }

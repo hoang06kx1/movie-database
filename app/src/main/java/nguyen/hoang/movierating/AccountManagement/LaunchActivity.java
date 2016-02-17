@@ -37,7 +37,7 @@ public class LaunchActivity extends FragmentActivity {
 
     private void initView() {
         FragmentLaunch fragmentLaunch = new FragmentLaunch();
-        Utils.replaceFragmentInAccountManagement(this, fragmentLaunch, fragmentLaunch.TAG);
+        Utils.replaceFragmentInAccountManagement(this, fragmentLaunch, fragmentLaunch.TAG, false);
     }
 
     @Override
