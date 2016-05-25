@@ -17,9 +17,4 @@ public class TestParseApplication extends ParseApplication {
     protected void enableParseLocalDatastore(Context context) {
         // Parse.enableLocalDatastore(context);
     }
-
-    @Override
-    protected void initParse(Context context) {
-        Parse.initialize(this);
-    }
 }

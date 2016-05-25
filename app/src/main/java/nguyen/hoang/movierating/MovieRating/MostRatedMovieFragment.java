@@ -88,7 +88,7 @@ public class MostRatedMovieFragment extends Fragment {
                         mGridRecycleMovie.setAdapter(adapter);
                         Utils.setTopRatedMovieAdapter(adapter);
                     }
-                }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
+                }, new BaseErrorListener((BaseActivity) getActivity(), "get TopRatedMovies"), (BaseActivity) getActivity());
         return v;
     }
 

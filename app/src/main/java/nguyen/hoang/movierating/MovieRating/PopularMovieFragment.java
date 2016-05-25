@@ -75,7 +75,7 @@ public class PopularMovieFragment extends Fragment {
                         mGridRecycleMovie.setAdapter(adapter);
                         Utils.setPopularMovieAdapter(adapter);
                     }
-                }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
+                }, new BaseErrorListener((BaseActivity) getActivity(), "get Popular movies"), (BaseActivity) getActivity());
         return v;
     }
 

@@ -55,14 +55,10 @@ public class FragmentForgotPasswordTest {
 
     @Test
     public void inputCorrectEmail_shouldNotShowValidationText() {
-
-        /*
         EditText edtEmail = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_email);
         edtEmail.setText("hoang06kx1@gmail.com");
         mFragmentForgotPassword.getView().findViewById(R.id.btn_submit).performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
-        */
-        // assertEquals(mLaunchActivity.getResources().getString(R.string.password_invalid), mTvWrongValidation.getText().toString());
     }
 
     @Test

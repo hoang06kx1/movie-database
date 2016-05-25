@@ -19,71 +19,47 @@ import nguyen.hoang.movierating.Utils.LruBitmapCache;
  */
 public class ParseApplication extends Application {
     public static final String TAG = "RequestFactory";
-    private static ParseApplication mInstance;
     private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
-
-    public static synchronized ParseApplication getInstance() {
-        return mInstance;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
-        Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
-        built.setLoggingEnabled(true);
-        Picasso.setSingletonInstance(built);
-        mInstance = this;
-        try {
-            enableParseLocalDatastore(this);
-            initParse(this);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        initPicasso();
+        initParse();
     }
 
     protected void enableParseLocalDatastore(Context context) {
         Parse.enableLocalDatastore(context);
     }
 
-    protected void initParse(Context context) {
-        Parse.initialize(context);
+    protected void initPicasso() {
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+        Picasso built = builder.build();
+        built.setIndicatorsEnabled(true);
+        built.setLoggingEnabled(true);
+        try {
+            Picasso.setSingletonInstance(built);
+        } catch (Exception ex) {}
+    }
+    protected void initParse() {
+        try {
+            enableParseLocalDatastore(this);
+            Parse.initialize(this);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
-    public RequestQueue getRequestQueue() {
+    public synchronized RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         }
         return mRequestQueue;
     }
 
-    public ImageLoader getImageLoader() {
-        if (mImageLoader == null) {
-            mImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache());
-        }
-        return mImageLoader;
-    }
-
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
     }
-
-    public <T> void addToRequestQueue(Request<T> req) {
-        addToRequestQueue(req, null);
-    }
-
-    public void cancelRequests(String tag) {
-        if (mRequestQueue != null) {
-            mRequestQueue.cancelAll(tag);
-        }
-    }
-
-    public void cancelRequests() {
-        mRequestQueue.cancelAll(TAG);
-    }
-
 }

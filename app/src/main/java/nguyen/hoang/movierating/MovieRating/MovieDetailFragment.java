@@ -83,11 +83,11 @@ public class MovieDetailFragment extends Fragment {
                                             ((TrailerAdapter) mRecyclerTrailers.getAdapter()).setTrailerList(trailers);
                                             mRecyclerTrailers.getAdapter().notifyDataSetChanged();
                                         }
-                                    }, new BaseErrorListener((BaseActivity) getActivity()), (BaseActivity) getActivity());
+                                    }, new BaseErrorListener((BaseActivity) getActivity(), "get Movie Trailer " + movieId), (BaseActivity) getActivity());
                         }
                     }
                 },
-                new BaseErrorListener((BaseActivity) getActivity()) {
+                new BaseErrorListener((BaseActivity) getActivity(), "get Movie detail! " + movieId) {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         super.onErrorResponse(error);

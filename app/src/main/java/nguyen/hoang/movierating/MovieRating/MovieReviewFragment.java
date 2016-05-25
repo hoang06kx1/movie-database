@@ -68,7 +68,7 @@ public class MovieReviewFragment extends Fragment {
                         ReviewAdapter adapter = new ReviewAdapter(results, baseActivity);
                         mRecyclerView.setAdapter(adapter);
                     }
-                }, new BaseErrorListener(baseActivity), baseActivity);
+                }, new BaseErrorListener(baseActivity, "get Moive Review " + mMovieId), baseActivity);
         return v;
     }
 
