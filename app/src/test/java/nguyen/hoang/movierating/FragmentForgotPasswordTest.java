@@ -76,6 +76,4 @@ public class FragmentForgotPasswordTest {
         mFragmentForgotPassword.getView().findViewById(R.id.btn_cancel).performClick();
         assertTrue(mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG).isVisible());
     }
-
-
 }

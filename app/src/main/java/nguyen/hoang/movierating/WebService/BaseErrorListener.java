@@ -26,7 +26,10 @@ public class BaseErrorListener implements Response.ErrorListener {
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        error.printStackTrace();
+        if (error != null) {
+            error.printStackTrace();
+        }
+
         if (mDialog != null && mDialog.isShowing()) {
             mDialog.hide();
         }

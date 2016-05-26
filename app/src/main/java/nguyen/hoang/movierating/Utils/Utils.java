@@ -49,22 +49,26 @@ public class Utils {
     }
 
     public static void showErrorMessage(FragmentActivity activity, ParseException ex) {
-        switch (ex.getCode()) {
-            case ParseException.CONNECTION_FAILED:
-                Toast.makeText(activity, activity.getString(R.string.network_failed), Toast.LENGTH_LONG).show();
-                break;
-            case ParseException.INVALID_EMAIL_ADDRESS:
-                Toast.makeText(activity, activity.getString(R.string.email_invalid), Toast.LENGTH_LONG).show();
-                break;
-            case ParseException.USERNAME_TAKEN:
-                Toast.makeText(activity, activity.getString(R.string.account_existed), Toast.LENGTH_LONG).show();
-                break;
-            case ParseException.OBJECT_NOT_FOUND:
-                Toast.makeText(activity, activity.getString(R.string.wrong_email), Toast.LENGTH_LONG).show();
-                break;
-            default:
-                Toast.makeText(activity, "Code: " + ex.getCode() + " - " + ex.getMessage(), Toast.LENGTH_LONG).show();
-                break;
+        if (ex != null) {
+            switch (ex.getCode()) {
+                case ParseException.CONNECTION_FAILED:
+                    Toast.makeText(activity, activity.getString(R.string.network_failed), Toast.LENGTH_LONG).show();
+                    break;
+                case ParseException.INVALID_EMAIL_ADDRESS:
+                    Toast.makeText(activity, activity.getString(R.string.email_invalid), Toast.LENGTH_LONG).show();
+                    break;
+                case ParseException.USERNAME_TAKEN:
+                    Toast.makeText(activity, activity.getString(R.string.account_existed), Toast.LENGTH_LONG).show();
+                    break;
+                case ParseException.OBJECT_NOT_FOUND:
+                    Toast.makeText(activity, activity.getString(R.string.wrong_email), Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    Toast.makeText(activity, "Code: " + ex.getCode() + " - " + ex.getMessage(), Toast.LENGTH_LONG).show();
+                    break;
+            }
+        } else {
+            Toast.makeText(activity, activity.getString(R.string.Unknown_error), Toast.LENGTH_LONG).show();
         }
     }
 

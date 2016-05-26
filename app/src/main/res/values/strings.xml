@@ -27,6 +27,7 @@
     <string name="SUBMIT">SUBMIT</string>
     <string name="please_enter_email">Please enter your email so we can send you link to reset password</string>
     <string name="wrong_email">Wrong email or password</string>
+    <string name="Unknown_error">Unknown error</string>
     <string name="password_invalid">Your password must contains Uppercase character, special character and at lest 6 letters. </string>
     <string name="email_invalid">Your email is invalid.Please input correct email. </string>
     <!-- TODO: Remove or change this placeholder text -->

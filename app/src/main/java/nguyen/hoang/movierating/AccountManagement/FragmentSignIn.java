@@ -18,7 +18,10 @@ import com.parse.ParseUser;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.MovieRating.MainActivity;
+import nguyen.hoang.movierating.ParseApplication;
 import nguyen.hoang.movierating.R;
+import nguyen.hoang.movierating.TestParseApplication;
+import nguyen.hoang.movierating.Utils.ParseWrapper;
 import nguyen.hoang.movierating.Utils.Utils;
 
 /**
@@ -33,10 +36,17 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     @Bind(R.id.edt_password) EditText mEdtPassword;
     @Bind(R.id.tv_wrong_validation) TextView mTvWrongValidation;
     @Bind(R.id.btn_cancel) Button mBtnCancel;
+    ParseWrapper mParseWrapper;
+
     public FragmentSignIn() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParseWrapper = ((ParseApplication)getActivity().getApplication()).getParseWrapper();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,7 +90,7 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     }
 
     private void processSignIn(String email, String password) {
-        ParseUser.logInInBackground(email, password, new LogInCallback() {
+        mParseWrapper.logInInBackground(email, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {

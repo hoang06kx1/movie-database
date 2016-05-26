@@ -9,10 +9,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.parse.Parse;
+import com.parse.ParseUser;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import nguyen.hoang.movierating.Utils.LruBitmapCache;
+import nguyen.hoang.movierating.Utils.ParseWrapper;
 
 /**
  * Created by Hoang on 12/14/2015.
@@ -61,5 +63,13 @@ public class ParseApplication extends Application {
     public <T> void addToRequestQueue(Request<T> req, String tag) {
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);
+    }
+
+    ParseWrapper mParseWrapper;
+    public synchronized ParseWrapper getParseWrapper() {
+        if (mParseWrapper != null) {
+            mParseWrapper = new ParseWrapper();
+        }
+        return mParseWrapper;
     }
 }
