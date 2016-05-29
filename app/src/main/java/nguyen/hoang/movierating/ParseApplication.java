@@ -6,15 +6,16 @@ import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
+
 import com.android.volley.toolbox.Volley;
 import com.parse.Parse;
-import com.parse.ParseUser;
+
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-import nguyen.hoang.movierating.Utils.LruBitmapCache;
-import nguyen.hoang.movierating.Utils.ParseWrapper;
+import nguyen.hoang.movierating.di.ParseWrapperComponent;
+import nguyen.hoang.movierating.di.ParseWrapperModule;
+
 
 /**
  * Created by Hoang on 12/14/2015.
@@ -72,12 +73,9 @@ public class ParseApplication extends Application {
         getRequestQueue().add(req);
     }
 
-    // use for testing third party lib
-    ParseWrapper mParseWrapper;
-    public synchronized ParseWrapper getParseWrapper() {
-        if (mParseWrapper != null) {
-            mParseWrapper = new ParseWrapper();
-        }
-        return mParseWrapper;
+    public ParseWrapperComponent getParseWrapperComponent() {
+        return DaggerParseWrapperComponent.builder()
+                .parseWrapperModule(new ParseWrapperModule())
+                .build();
     }
 }

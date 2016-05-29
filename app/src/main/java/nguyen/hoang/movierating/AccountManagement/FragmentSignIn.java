@@ -1,9 +1,12 @@
 package nguyen.hoang.movierating.AccountManagement;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +18,20 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.MovieRating.MainActivity;
 import nguyen.hoang.movierating.ParseApplication;
 import nguyen.hoang.movierating.R;
-import nguyen.hoang.movierating.TestParseApplication;
 import nguyen.hoang.movierating.Utils.ParseWrapper;
 import nguyen.hoang.movierating.Utils.Utils;
 
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class FragmentSignIn extends android.support.v4.app.Fragment implements View.OnClickListener {
     public static String TAG = "FragmentSignIn";
     @Bind(R.id.tv_forget_password) TextView mTvForgotPassword;
@@ -36,7 +41,7 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     @Bind(R.id.edt_password) EditText mEdtPassword;
     @Bind(R.id.tv_wrong_validation) TextView mTvWrongValidation;
     @Bind(R.id.btn_cancel) Button mBtnCancel;
-    ParseWrapper mParseWrapper;
+    @Inject ParseWrapper mParseWrapper;
 
     public FragmentSignIn() {
         // Required empty public constructor
@@ -45,7 +50,14 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParseWrapper = ((ParseApplication)getActivity().getApplication()).getParseWrapper();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentActivity) {
+            ((ParseApplication)((FragmentActivity) context).getApplication()).getParseWrapperComponent().inject();
+        }
     }
 
     @Override
