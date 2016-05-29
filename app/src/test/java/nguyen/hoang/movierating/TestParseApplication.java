@@ -2,6 +2,11 @@ package nguyen.hoang.movierating;
 
 import android.content.Context;
 
+import javax.inject.Singleton;
+
+import nguyen.hoang.movierating.di.DaggerMockParseWrapperComponent;
+import nguyen.hoang.movierating.di.DaggerParseWrapperComponent;
+import nguyen.hoang.movierating.di.MockParseWrapperModule;
 import nguyen.hoang.movierating.di.ParseWrapperComponent;
 
 /**
@@ -18,10 +23,16 @@ public class TestParseApplication extends ParseApplication {
         // Parse.enableLocalDatastore(context);
     }
 
-    @Override
-    public ParseWrapperComponent getParseWrapperComponent() {
+    private final ParseWrapperComponent component = createComponent();
+
+    ParseWrapperComponent createComponent() {
         return DaggerMockParseWrapperComponent.builder()
                 .mockParseWrapperModule(new MockParseWrapperModule())
                 .build();
+    }
+
+    @Override
+    public ParseWrapperComponent getParseWrapperComponent() {
+        return component;
     }
 }

@@ -56,7 +56,7 @@ public class FragmentSignIn extends android.support.v4.app.Fragment implements V
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof FragmentActivity) {
-            ((ParseApplication)((FragmentActivity) context).getApplication()).getParseWrapperComponent().inject();
+            mParseWrapper = ((ParseApplication)((FragmentActivity) context).getApplication()).getParseWrapperComponent().inject();
         }
     }
 

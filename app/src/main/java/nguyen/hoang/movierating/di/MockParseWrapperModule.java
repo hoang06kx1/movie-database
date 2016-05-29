@@ -1,4 +1,4 @@
-package nguyen.hoang.movierating;
+package nguyen.hoang.movierating.di;
 
 import org.mockito.Mockito;
 

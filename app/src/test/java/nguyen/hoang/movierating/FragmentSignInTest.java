@@ -29,6 +29,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowToast;
 
+import javax.inject.Inject;
+
 import nguyen.hoang.movierating.AccountManagement.FragmentForgotPassword;
 import nguyen.hoang.movierating.AccountManagement.FragmentLaunch;
 import nguyen.hoang.movierating.AccountManagement.FragmentSignIn;
@@ -53,6 +55,7 @@ public class FragmentSignInTest {
     TextView mTvWrongValidation;
     EditText mEdtPassword;
     EditText mEdtEmail;
+    @Inject
     ParseWrapper mockParseWrapper;
     View mBtnSignIn;
 
@@ -70,6 +73,7 @@ public class FragmentSignInTest {
         mBtnSignIn = mFragmentSignIn.getView().findViewById(R.id.btn_sign_in);
         // init Mock injector
         MockitoAnnotations.initMocks(this);
+        mockParseWrapper = ((TestParseApplication) mLaunchActivity.getApplication()).getParseWrapperComponent().inject();
     }
 
     @Test
@@ -117,7 +121,7 @@ public class FragmentSignInTest {
     public void loginSuccessful_shouldShowMainActivity() {
         mEdtEmail.setText("hoang06kx1@gmail.com");
         mEdtPassword.setText("Goin@123");
-        mockParseWrapper = ((TestParseApplication) mLaunchActivity.getApplication()).getParseWrapper();
+
         ParseUser mockUser = Mockito.mock(ParseUser.class);
         mBtnSignIn.performClick();
 
@@ -136,7 +140,6 @@ public class FragmentSignInTest {
     public void loginFailed_shouldShowErrorToast() {
         mEdtEmail.setText("hoang06kx1@gmail.com");
         mEdtPassword.setText("Goin@123");
-        mockParseWrapper = ((TestParseApplication) mLaunchActivity.getApplication()).getParseWrapper();
         mBtnSignIn.performClick();
         Mockito.verify(mockParseWrapper, Mockito.times(1)).logInInBackground(Mockito.anyString(), Mockito.anyString(),
                 logInCallbackCaptor.capture());

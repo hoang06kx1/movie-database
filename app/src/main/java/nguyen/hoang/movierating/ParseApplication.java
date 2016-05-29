@@ -13,6 +13,9 @@ import com.parse.Parse;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Singleton;
+
+import nguyen.hoang.movierating.di.DaggerParseWrapperComponent;
 import nguyen.hoang.movierating.di.ParseWrapperComponent;
 import nguyen.hoang.movierating.di.ParseWrapperModule;
 
@@ -73,9 +76,15 @@ public class ParseApplication extends Application {
         getRequestQueue().add(req);
     }
 
-    public ParseWrapperComponent getParseWrapperComponent() {
+    private final ParseWrapperComponent component = createComponent();
+
+    private ParseWrapperComponent createComponent() {
         return DaggerParseWrapperComponent.builder()
                 .parseWrapperModule(new ParseWrapperModule())
                 .build();
+    }
+
+    public ParseWrapperComponent getParseWrapperComponent() {
+        return component;
     }
 }
