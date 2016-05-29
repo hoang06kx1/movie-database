@@ -33,10 +33,12 @@ public class Utils {
     }
 
     public static void replaceFragmentInAccountManagement(FragmentActivity activity, Fragment fragment, String tag, boolean addToBackStack) {
-        if (!addToBackStack) {
-            activity.getSupportFragmentManager().beginTransaction().replace(R.id.frament_container, fragment, tag).commit();
-        } else {
-            replaceFragmentInAccountManagement(activity, fragment, tag);
+        if (activity != null) {
+            if (!addToBackStack) {
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frament_container, fragment, tag).commit();
+            } else {
+                replaceFragmentInAccountManagement(activity, fragment, tag);
+            }
         }
     }
 

@@ -42,12 +42,19 @@ public class ParseApplication extends Application {
         built.setLoggingEnabled(true);
         try {
             Picasso.setSingletonInstance(built);
-        } catch (Exception ex) {}
+        } catch (IllegalStateException ex) {
+            // do nothing
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
+
     protected void initParse() {
         try {
             enableParseLocalDatastore(this);
             Parse.initialize(this);
+        } catch (IllegalStateException ex) {
+            // do nothing
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -65,6 +72,7 @@ public class ParseApplication extends Application {
         getRequestQueue().add(req);
     }
 
+    // use for testing third party lib
     ParseWrapper mParseWrapper;
     public synchronized ParseWrapper getParseWrapper() {
         if (mParseWrapper != null) {

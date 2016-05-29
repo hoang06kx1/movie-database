@@ -54,6 +54,7 @@ public class FragmentSignInTest {
     EditText mEdtPassword;
     EditText mEdtEmail;
     ParseWrapper mockParseWrapper;
+    View mBtnSignIn;
 
     @Before
     public void loadSignInFragment() {
@@ -66,6 +67,8 @@ public class FragmentSignInTest {
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
         mEdtPassword = (EditText) mFragmentSignIn.getView().findViewById(R.id.edt_password);
         mEdtEmail = (EditText) mFragmentSignIn.getView().findViewById(R.id.edt_email);
+        mBtnSignIn = mFragmentSignIn.getView().findViewById(R.id.btn_sign_in);
+        // init Mock injector
         MockitoAnnotations.initMocks(this);
     }
 
@@ -84,7 +87,7 @@ public class FragmentSignInTest {
     public void inputWrongFormatPassword_shouldShowValidationText() {
         mEdtPassword.setText("$T_t");
         mEdtEmail.setText("hoang06kx1@gmail.com");
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mLaunchActivity.getResources().getString(R.string.password_invalid), mTvWrongValidation.getText().toString());
     }
@@ -93,7 +96,7 @@ public class FragmentSignInTest {
     public void inputWrongFormatEmail_shouldShowValidationText() {
         mEdtEmail.setText("th@thkdf");
         mEdtPassword.setText("Goin@123");
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mLaunchActivity.getResources().getString(R.string.email_invalid), mTvWrongValidation.getText().toString());
     }
@@ -103,7 +106,7 @@ public class FragmentSignInTest {
         inputWrongFormatEmail_shouldShowValidationText();
         mEdtEmail.setText("hoang06kx1@gmail.com");
         mEdtPassword.setText("Goin@123");
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
     }
 
@@ -116,7 +119,7 @@ public class FragmentSignInTest {
         mEdtPassword.setText("Goin@123");
         mockParseWrapper = ((TestParseApplication) mLaunchActivity.getApplication()).getParseWrapper();
         ParseUser mockUser = Mockito.mock(ParseUser.class);
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
 
         // user Argument Captor to capture the callback
         Mockito.verify(mockParseWrapper, Mockito.times(1)).logInInBackground(Mockito.anyString(), Mockito.anyString(),
@@ -134,7 +137,7 @@ public class FragmentSignInTest {
         mEdtEmail.setText("hoang06kx1@gmail.com");
         mEdtPassword.setText("Goin@123");
         mockParseWrapper = ((TestParseApplication) mLaunchActivity.getApplication()).getParseWrapper();
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
         Mockito.verify(mockParseWrapper, Mockito.times(1)).logInInBackground(Mockito.anyString(), Mockito.anyString(),
                 logInCallbackCaptor.capture());
         logInCallbackCaptor.getValue().done(null, null);
@@ -146,7 +149,7 @@ public class FragmentSignInTest {
     public void inputMissingEmail_shouldShowError() {
         mEdtPassword.setText("Goin@123");
         mEdtEmail.setText("    ");
-        mFragmentSignIn.getView().findViewById(R.id.btn_sign_in).performClick();
+        mBtnSignIn.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mTvWrongValidation.getText().toString(), mLaunchActivity.getResources().getString(R.string.missing_email_password));
         inputCorrectEmailPassword_shouldNotShowValidationText();

@@ -28,6 +28,9 @@ public class FragmentSignUpTest {
     LaunchActivity mLaunchActivity;
     FragmentSignUp mFragmentSignUp;
     TextView mTvWrongValidation;
+    TextView mEdtEmail, mEdtPassword;
+    View mBtnSignUp;
+
     @Before
     public void loadSignUpFragment() {
         mLaunchActivity = Robolectric.setupActivity(LaunchActivity.class);
@@ -37,26 +40,25 @@ public class FragmentSignUpTest {
         assertTrue(mFragmentSignUp.isVisible());
         mTvWrongValidation = (TextView) mFragmentSignUp.getView().findViewById(R.id.tv_wrong_validation);
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
+        mEdtEmail = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_email);
+        mEdtPassword = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_password);
+        mBtnSignUp = mFragmentSignUp.getView().findViewById(R.id.btn_sign_up);
     }
 
     @Test
     public void inputWrongFormatPassword_shouldShowValidationText() {
-        EditText edtPassword = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_password);
-        EditText edtEmail = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_email);
-        edtPassword.setText("$T_t");
-        edtEmail.setText("hoang06kx1@gmail.com");
-        mFragmentSignUp.getView().findViewById(R.id.btn_sign_up).performClick();
+        mEdtPassword.setText("$T_t");
+        mEdtEmail.setText("hoang06kx1@gmail.com");
+        mBtnSignUp.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mLaunchActivity.getResources().getString(R.string.password_invalid), mTvWrongValidation.getText().toString());
     }
 
     @Test
     public void inputWrongFormatEmail_shouldShowValidationText() {
-        EditText edtPassword = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_password);
-        EditText edtEmail = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_email);
-        edtEmail.setText("th@thkdf");
-        edtPassword.setText("Goin@123");
-        mFragmentSignUp.getView().findViewById(R.id.btn_sign_up).performClick();
+        mEdtEmail.setText("th@thkdf");
+        mEdtPassword.setText("Goin@123");
+        mBtnSignUp.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mLaunchActivity.getResources().getString(R.string.email_invalid), mTvWrongValidation.getText().toString());
     }
@@ -64,22 +66,17 @@ public class FragmentSignUpTest {
     @Test
     public void inputCorrectEmailPassword_shouldNotShowValidationText() {
         inputWrongFormatEmail_shouldShowValidationText();
-        EditText edtPassword = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_password);
-        EditText edtEmail = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_email);
-        edtEmail.setText("hoang06kx1@gmail.com");
-        edtPassword.setText("Goin@123");
-        mFragmentSignUp.getView().findViewById(R.id.btn_sign_up).performClick();
+        mEdtEmail.setText("hoang06kx1@gmail.com");
+        mEdtPassword.setText("Goin@123");
+        mBtnSignUp.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
-        // assertEquals(mLaunchActivity.getResources().getString(R.string.password_invalid), mTvWrongValidation.getText().toString());
     }
 
     @Test
     public void inputMissingEmail_shouldShowError() {
-        EditText edtPassword = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_password);
-        EditText edtEmail = (EditText) mFragmentSignUp.getView().findViewById(R.id.edt_email);
-        edtPassword.setText("Goin@123");
-        edtEmail.setText("    ");
-        mFragmentSignUp.getView().findViewById(R.id.btn_sign_up).performClick();
+        mEdtPassword.setText("Goin@123");
+        mEdtEmail.setText("    ");
+        mBtnSignUp.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mTvWrongValidation.getText().toString(), mLaunchActivity.getResources().getString(R.string.missing_email_password));
         inputCorrectEmailPassword_shouldNotShowValidationText();

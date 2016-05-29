@@ -31,6 +31,9 @@ public class FragmentForgotPasswordTest {
     LaunchActivity mLaunchActivity;
     FragmentForgotPassword mFragmentForgotPassword;
     TextView mTvWrongValidation;
+    EditText mEdtEmail;
+    EditText mEdtPassword;
+    View mBtnSubmit;
 
     @Before
     public void loadForgotPasswordFragment() {
@@ -42,33 +45,32 @@ public class FragmentForgotPasswordTest {
         assertTrue(mFragmentForgotPassword.isVisible());
         mTvWrongValidation = (TextView) mFragmentForgotPassword.getView().findViewById(R.id.tv_wrong_validation);
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
+        mEdtEmail = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_email);
+        mEdtPassword = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_password);
+        mBtnSubmit = mFragmentForgotPassword.getView().findViewById(R.id.btn_submit);
     }
 
     @Test
     public void inputWrongFormatEmail_shouldShowValidationText() {
-        EditText edtEmail = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_email);
-        edtEmail.setText("th@thkdf");
-        mFragmentForgotPassword.getView().findViewById(R.id.btn_submit).performClick();
+        mEdtEmail.setText("th@thkdf");
+        mBtnSubmit.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mLaunchActivity.getResources().getString(R.string.email_invalid), mTvWrongValidation.getText().toString());
     }
 
     @Test
     public void inputCorrectEmail_shouldNotShowValidationText() {
-        EditText edtEmail = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_email);
-        edtEmail.setText("hoang06kx1@gmail.com");
-        mFragmentForgotPassword.getView().findViewById(R.id.btn_submit).performClick();
+        mEdtEmail.setText("hoang06kx1@gmail.com");
+        mBtnSubmit.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.GONE);
     }
 
     @Test
     public void inputMissingEmail_shouldShowError() {
-        EditText edtEmail = (EditText) mFragmentForgotPassword.getView().findViewById(R.id.edt_email);
-        edtEmail.setText("    ");
-        mFragmentForgotPassword.getView().findViewById(R.id.btn_submit).performClick();
+        mEdtEmail.setText("    ");
+        mBtnSubmit.performClick();
         assertTrue(mTvWrongValidation.getVisibility() == View.VISIBLE);
         assertEquals(mTvWrongValidation.getText().toString(), mLaunchActivity.getResources().getString(R.string.missing_email));
-        // inputCorrectEmail_shouldNotShowValidationText();
     }
 
     @Test
