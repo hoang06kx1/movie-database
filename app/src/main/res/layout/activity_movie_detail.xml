@@ -24,7 +24,7 @@
             app:tabBackground="@color/white"
             app:tabGravity="fill"
             app:tabIndicatorHeight="5dp"
-            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
             app:tabSelectedTextColor="@color/colorPrimary"
             app:tabTextColor="@color/colorPrimary">
 
