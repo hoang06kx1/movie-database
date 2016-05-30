@@ -6,17 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import nguyen.hoang.movierating.R;
 import nguyen.hoang.movierating.util.Utils;
 
 public class LaunchFragment extends Fragment implements View.OnClickListener {
     public static String TAG = "FragmentLaunch";
-    @Bind(R.id.btn_sign_in) Button mBtnSignIn;
-    @Bind(R.id.btn_sign_up) Button mBtnSignUp;
+    private View mBtnSignIn;
+    private View mBtnSignUp;
+
     public LaunchFragment() {
         // Required empty public constructor
     }
@@ -28,6 +26,8 @@ public class LaunchFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_launch, container, false);
         ButterKnife.bind(this, v);
+        mBtnSignIn = v.findViewById(R.id.btn_sign_in);
+        mBtnSignUp = v.findViewById(R.id.btn_sign_up);
         mBtnSignIn.setOnClickListener(this);
         mBtnSignUp.setOnClickListener(this);
         return v;
