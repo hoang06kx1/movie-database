@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <nguyen.hoang.movierating.CustomView.ScaleImageView
+    <nguyen.hoang.movierating.ui.misc.ScaleImageView
         android:id="@+id/img_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

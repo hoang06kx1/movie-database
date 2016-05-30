@@ -4,7 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import nguyen.hoang.movierating.Utils.ParseWrapper;
+import nguyen.hoang.movierating.util.ParseWrapper;
 
 /**
  * Created by Hoang on 5/29/2016.

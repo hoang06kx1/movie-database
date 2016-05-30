@@ -28,7 +28,7 @@
         <uses-sdk android:targetSdkVersion="16" />
 
         <activity
-            android:name=".AccountManagement.LaunchActivity"
+            android:name=".ui.authentication.activity.LaunchActivity"
             android:label="@string/title_activity_launch"
             android:theme="@style/MaterialTheme">
             <intent-filter>
@@ -38,10 +38,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MovieRating.MainActivity"
+            android:name=".ui.main.activity.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/MaterialTheme"></activity>
-        <activity android:name=".MovieRating.MovieDetailActivity"></activity>
+        <activity android:name=".ui.main.activity.MovieDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -2,7 +2,7 @@ package nguyen.hoang.movierating;
 
 import junit.framework.TestCase;
 
-import nguyen.hoang.movierating.Utils.Utils;
+import nguyen.hoang.movierating.util.Utils;
 
 /**
  * Created by Hoang on 12/11/2015.

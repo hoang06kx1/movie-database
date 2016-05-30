@@ -1,4 +1,4 @@
-<nguyen.hoang.movierating.CustomView.AutofitRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<nguyen.hoang.movierating.ui.misc.AutofitRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recycler_trailers"
     android:layout_width="match_parent"
@@ -6,4 +6,4 @@
     android:background="@color/bg_movie_list"
     android:columnWidth="150dp"
     android:padding="8dp"
-    tools:context="nguyen.hoang.movierating.MovieRating.MovieDetailFragment"></nguyen.hoang.movierating.CustomView.AutofitRecyclerView>
+    tools:context=".ui.main.fragment.MovieDetailFragment"></nguyen.hoang.movierating.ui.misc.AutofitRecyclerView>

@@ -7,10 +7,10 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
-import nguyen.hoang.movierating.AccountManagement.FragmentLaunch;
-import nguyen.hoang.movierating.AccountManagement.FragmentSignIn;
-import nguyen.hoang.movierating.AccountManagement.FragmentSignUp;
-import nguyen.hoang.movierating.AccountManagement.LaunchActivity;
+import nguyen.hoang.movierating.ui.authentication.fragment.LaunchFragment;
+import nguyen.hoang.movierating.ui.authentication.fragment.SignInFragment;
+import nguyen.hoang.movierating.ui.authentication.fragment.SignUpFragment;
+import nguyen.hoang.movierating.ui.authentication.activity.LaunchActivity;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
@@ -42,9 +42,9 @@ public class BackPressOnSignInOrSignUpTest {
         } else {
             mLaunchActivity.findViewById(R.id.btn_cancel).performClick();
         }
-        FragmentLaunch fragmentLaunch = (FragmentLaunch) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-        assertNotNull(fragmentLaunch);
-        assertTrue("Fragment launch shoud be visible after press back when on Sign In screen", fragmentLaunch.isVisible());
+        LaunchFragment launchFragment = (LaunchFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(LaunchFragment.TAG);
+        assertNotNull(launchFragment);
+        assertTrue("Fragment launch shoud be visible after press back when on Sign In screen", launchFragment.isVisible());
 
         mLaunchActivity.findViewById(R.id.btn_sign_up).performClick(); // load sign up screen
         if (mode == 1) {
@@ -52,33 +52,33 @@ public class BackPressOnSignInOrSignUpTest {
         } else {
             mLaunchActivity.findViewById(R.id.btn_cancel).performClick();
         }
-        fragmentLaunch = (FragmentLaunch) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-        assertNotNull(fragmentLaunch);
-        assertTrue("Fragment launch shoud be visible after press back when on Sign Up screen", fragmentLaunch.isVisible());
+        launchFragment = (LaunchFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(LaunchFragment.TAG);
+        assertNotNull(launchFragment);
+        assertTrue("Fragment launch shoud be visible after press back when on Sign Up screen", launchFragment.isVisible());
 
         // Complex steps
         mLaunchActivity.findViewById(R.id.btn_sign_in).performClick(); // load sign in screen
-        FragmentSignIn fragmentSignIn = (FragmentSignIn) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignIn.TAG);
-        fragmentSignIn.getView().findViewById(R.id.tv_sign_up).performClick(); // continue load sign up screen
+        SignInFragment signInFragment = (SignInFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(SignInFragment.TAG);
+        signInFragment.getView().findViewById(R.id.tv_sign_up).performClick(); // continue load sign up screen
         if (mode == 1) {
             mLaunchActivity.onBackPressed(); // Emulate press back button
         } else {
             mLaunchActivity.findViewById(R.id.btn_cancel).performClick();
         }
-        fragmentLaunch = (FragmentLaunch) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-        assertNotNull(fragmentLaunch);
-        assertTrue("Fragment launch shoud be visible after press back when on Sign Up screen", fragmentLaunch.isVisible());
+        launchFragment = (LaunchFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(LaunchFragment.TAG);
+        assertNotNull(launchFragment);
+        assertTrue("Fragment launch shoud be visible after press back when on Sign Up screen", launchFragment.isVisible());
 
-        fragmentLaunch.getView().findViewById(R.id.btn_sign_up).performClick(); // load sign up screen
-        FragmentSignUp fragmentSignUp = (FragmentSignUp) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentSignUp.TAG);
-        fragmentSignUp.getView().findViewById(R.id.tv_sign_in).performClick();  // continue load sign in screen
+        launchFragment.getView().findViewById(R.id.btn_sign_up).performClick(); // load sign up screen
+        SignUpFragment signUpFragment = (SignUpFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(SignUpFragment.TAG);
+        signUpFragment.getView().findViewById(R.id.tv_sign_in).performClick();  // continue load sign in screen
         if (mode == 1) {
             mLaunchActivity.onBackPressed(); // Emulate press back button
         } else {
             mLaunchActivity.findViewById(R.id.btn_cancel).performClick();
         }
-        fragmentLaunch = (FragmentLaunch) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(FragmentLaunch.TAG);
-        assertNotNull(fragmentLaunch);
-        assertTrue("Fragment launch shoud be visible after press back when on Sign In screen", fragmentLaunch.isVisible());
+        launchFragment = (LaunchFragment) mLaunchActivity.getSupportFragmentManager().findFragmentByTag(LaunchFragment.TAG);
+        assertNotNull(launchFragment);
+        assertTrue("Fragment launch shoud be visible after press back when on Sign In screen", launchFragment.isVisible());
     }
 }

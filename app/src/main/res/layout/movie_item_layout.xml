@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/cat_loading_resized" />
 
-            <nguyen.hoang.movierating.CustomView.ScaleImageView
+            <nguyen.hoang.movierating.ui.misc.ScaleImageView
                 android:id="@+id/img_movie"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
